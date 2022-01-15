@@ -16,28 +16,79 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
+	<script src="dist/jquery.min.js"></script>
+<script src="dist/cropzee.js" defer></script>
+	<style>
+		.image-previewer {
+			height: 220px;
+			width: 150px;
+			display: flex;
+			border-radius: 10px;
+			border: 1px solid lightgrey;
+		}
+		.split {
+  height: 100%;
+  width: 27%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+		.left {
+  left: 0;
+  background-color: blue;
+  opacity: 0.5;
+}
+.center {
+  left: 30%;
+  
+  
+ 
+}
+.right {
+  right: 0;
+  background-color: green;
+  opacity: 0.5;
+}
+	</style> 
+
+<!-- Bootstrap Form for creating a user -->
+
+	<script>
+		$(document).ready(function(){
+			$("#cropzee-input").cropzee({startSize: [85, 85, '%'],});
+		});
+		function salvarImagem(a){
+	   var meucanvas = document.getElementById('undefined');
+	   var arquivo = document.getElementById('cropzee-input');
+	   /*Comentário: a variavel "a" será o nome do arquivo, use aspas para chamar a função */
+	   arquivo.download = a;
+	   arquivo.href = meucanvas.toDataURL("image/png");
+	   document.getElementById('imm').value = a;
+	}
+	</script>
   </head>
-  <body>
-    <main>
+  <body onload="carregar()">
+    <main class="split center">
       <div class="container">
         <div class="avatar">
-          <img src="https://github.com/joannaneves.png" alt="Foto pessoal" />
+       <img id="foto" src="images/avatar.png" alt="ícone github" />
         </div>
 
-        <h1>Joanna Malta</h1>
-        <a href="https://github.com/joannaneves" target="_blank">
+        <h1 id=nome></h1>
+        <a id="git" href="https://github.com/" target="_blank">
           <img src="images/github.svg" alt="ícone github" />
-          joannaneves</a
+          <p id=nome></p></a
         >
 
-        <p>
-          Dev Front-End em Construção &#9749;
-          Pianista &#127929; Gamer &#127918; Nerd &#129501;
+        <p id="bio">
+          
         </p>
 
         <ul>
           <li>
-            <a href="https://youtube.com/joannanevesmalta" target="_blank">
+            <a id="youtube" href="https://youtube.com/" target="_blank">
               <img
                 src="images/icons8-reproduzir-youtube-50.png"
                 alt="ícone youtube"
@@ -46,14 +97,14 @@
           </li>
           <li>
             <a
-              href="https://linkedin.com/in/joanna-neves-malta"
+              id="linkedin" href="https://linkedin.com/in/"
               target="_blank"
             >
               <img src="images/icons8-linkedin-50.png" alt="ícone facebook" />
             </a>
           </li>
           <li>
-            <a href="https://instagram.com/joanna.malta" target="_blank">
+            <a id="instagram" href="https://instagram.com/" target="_blank">
               <img
                 src="images/icons8-instagram-velho-48.png"
                 alt="ícone instagram"
@@ -61,28 +112,61 @@
             </a>
           </li>
           <li>
-            <a href="https://twitter.com/doritosecheddar" target="_blank">
+            <a id="twitter" href="https://twitter.com/" target="_blank">
               <img src="images/icons8-twitter-50.png" alt="ícone twitter" />
             </a>
           </li>
         </ul>
       </div>
+	  
     </main>
+<div class="split right">
 
-    <!--  <script>
-      const LinksSocialMedia = {
-        github: 'joannaneves',
-        youtube: 'joannaneves',
-        linkedin: 'joanna-neves-malta',
-        instagram: 'joanna.malta',
-        twitter: 'doritosecheddar'
+<form name="myForm" action="" onsubmit="return cadastro()" method="post">
+<table>
+<tr><td>
+<label for='cropzee-input' id='undefined' class='image-previewer' data-cropzee='cropzee-input'></label>
+		<input id='cropzee-input' name='cropzee-input' type='file' accept='image/*'>
+		<input type='hidden' id='imm' name='imm'  >
+		</td><tr>
+		<tr><td>
+	
+  <input type="text" name="nomex" placeholder="Nome">
+ </td><tr>
+ <tr><td>
+  <input type="text" name="biox" placeholder="Breve bio">
+  </td><tr>
+		<tr><td>
+  <input type="text" name="socialx" placeholder="Redes Sociais">
+  </td><tr>
+		<tr><td>
+   <input type="submit" value="Cadastrar">
+  </td><tr>
+</form>
+	  </div>
+ <script>
+function carregar(){
+document.getElementById("foto").src = localStorage.getItem("imagem");
+document.getElementById("nome").innerHTML = localStorage.getItem("nome");
+document.getElementById("bio").innerHTML = localStorage.getItem("bio");
+document.getElementById("git").href = "https://github.com/"+localStorage.getItem("social");
+document.getElementById("youtube").href = "https://youtube.com/"+localStorage.getItem("social");
+document.getElementById("linkedin").href = "https://linkedin.com/in/"+localStorage.getItem("social");
+document.getElementById("instagram").href = "https://instagram.com/"+localStorage.getItem("social");
+document.getElementById("twitter").href = "https://twitter.com/"+localStorage.getItem("social");
+}
+      function cadastro() {
+	  let foto = document.forms["myForm"]["imm"].value;
+	  let nome = document.forms["myForm"]["nomex"].value;
+	  let bio = document.forms["myForm"]["biox"].value;
+	  let social = document.forms["myForm"]["socialx"].value;
+	  
+	  
+       localStorage.setItem("imagem",foto);
+	   localStorage.setItem("nome",nome);
+	   localStorage.setItem("bio",bio);
+	   localStorage.setItem("social",social);
       }
-
-      function changeSocialMediaLinks() {
-        for (let i = 0; i <= 10; i++) {
-          alert(i)
-        }
-      }
-    </script> -->
+    </script> 
   </body>
 </html>
